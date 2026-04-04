@@ -103,42 +103,72 @@ body {
   font-size: 0.7rem; color: var(--gold-g2);
 }
 
-/* ========== BOOKING SECTION ========== */
+/* ========== BOOKING SECTION – Compact & Harmonized ========== */
 .booking-section {
-  flex: 1; display: flex; flex-direction: column;
-  max-width: 1100px; width: 100%; margin: 0 auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
   padding: 0 2rem;
 }
+
 .booking-frame-wrapper {
-  flex: 1; margin: -1.5rem auto 0; width: 100%; max-width: 1000px;
+  flex: 1;
+  margin: -1rem auto 0;
+  width: 100%;
+  max-width: 900px;
   background: #fff;
-  box-shadow: 0 10px 50px rgba(0,8,38,0.1);
-  border: 1px solid rgba(0,8,38,0.06);
-  position: relative; z-index: 2;
-  min-height: 650px;
-  display: flex; flex-direction: column;
+  box-shadow: 0 6px 30px rgba(0,8,38,0.08);
+  border: 1px solid rgba(0,8,38,0.05);
+  border-radius: 12px;
+  position: relative;
+  z-index: 2;
+  min-height: 480px;
+  max-height: 680px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
+
+.booking-frame-wrapper iframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+  min-height: 480px;
+  max-height: 680px;
+  border-radius: 12px;
+}
+
 .booking-loading {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  background: #fff; z-index: 3;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  z-index: 3;
   transition: opacity 0.4s ease;
 }
-.booking-loading.hidden { opacity: 0; pointer-events: none; }
+
+.booking-loading.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .loading-spinner {
-  width: 40px; height: 40px;
+  width: 36px;
+  height: 36px;
   border: 3px solid rgba(0,8,38,0.08);
   border-top-color: var(--gold-g2);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
+
 @keyframes spin { to { transform: rotate(360deg); } }
-.booking-loading p { font-size: 0.9rem; color: #4a5068; }
-.booking-frame-wrapper iframe {
-  flex: 1; width: 100%; border: none; min-height: 650px;
-}
 
 /* ========== INFO BAR ========== */
 .info-bar {
@@ -186,12 +216,17 @@ footer a { color: var(--gold-dark); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 
 /* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .booking-frame-wrapper { max-width: 100%; min-height: 450px; max-height: 650px; }
+  .booking-frame-wrapper iframe { min-height: 450px; max-height: 650px; }
+}
+
 @media (max-width: 768px) {
   .hero-banner { padding: 2rem 1.2rem 2rem; }
   .hero-features { gap: 1rem; }
   .booking-section { padding: 0 1rem; }
-  .booking-frame-wrapper { min-height: 550px; }
-  .booking-frame-wrapper iframe { min-height: 550px; }
+  .booking-frame-wrapper { min-height: 420px; max-height: 580px; }
+  .booking-frame-wrapper iframe { min-height: 420px; max-height: 580px; }
   .info-bar { flex-direction: column; gap: 1rem; align-items: flex-start; padding: 1.2rem 1.5rem; }
 }
 </style>
@@ -228,22 +263,6 @@ footer a:hover { text-decoration: underline; }
       <div class="loading-spinner"></div>
       <p>Chargement du calendrier...</p>
     </div>
-    <!--
-      ====================================================
-
-      REMPLACEZ L'URL CI-DESSOUS PAR VOTRE LIEN
-      MICROSOFT BOOKINGS.
-
-      Le lien ressemble à :
-      https://outlook.office365.com/book/G2Strateges@votredomaine.com/
-
-      Pour obtenir le lien :
-      1. Allez dans Microsoft Bookings
-      2. Page de réservation > Enregistrer et publier
-      3. Copiez le lien de la page
-
-      ====================================================
-    -->
     <iframe
       src="https://outlook.office365.com/book/GuillaumeLaplanteCSF1@ia.ca/?ismsaljsauthenabled=true"
       id="bookingIframe"
