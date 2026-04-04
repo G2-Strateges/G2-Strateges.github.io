@@ -111,21 +111,37 @@ body {
 }
 .booking-frame-wrapper {
   flex: 1;
-  margin: -1rem auto 1.5rem;
+  margin: -1.5rem auto 0;
   width: 100%;
-  max-width: 900px;
-  background: linear-gradient(135deg, rgba(253,211,0,0.1), rgba(255,243,143,0.05));
-  box-shadow: 0 12px 40px rgba(0,8,38,0.15);
-  border-radius: 16px;
-  border: none;
+  max-width: 700px;  /* <-- réduit la largeur maximale */
+  background: #fff;
+  box-shadow: 0 10px 50px rgba(0,8,38,0.1);
+  border: 1px solid rgba(0,8,38,0.06);
   position: relative;
   z-index: 2;
-  min-height: 480px;
-  max-height: 650px;
+  min-height: 600px;  /* <-- réduit la hauteur */
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  border-radius: 12px; /* coins arrondis */
+  overflow: hidden;    /* empêche le contenu de dépasser */
 }
+.booking-frame-wrapper iframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+  min-height: 600px; /* doit correspondre au conteneur */
+}
+
+✅ Résultat :
+
+Le Bookings ne prendra plus toute la largeur, il sera aligné au reste du site.
+Les coins arrondis et l’ombre donnent un look plus “conteneur intégré”.
+
+Si tu veux, je peux te réécrire tout ton fichier HTML complet avec cette modification prête à copier-coller, pour que ce soit propre et visuellement cohérent.
+
+Veux‑tu que je fasse ça ?
+
+2 c
 .booking-frame-wrapper iframe {
   flex: 1;
   width: 100%;
