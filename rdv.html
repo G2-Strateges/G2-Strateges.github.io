@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G2 Stratèges — Prendre rendez-vous</title>
+<meta name="description" content="Prenez rendez-vous avec un conseiller en sécurité financière de G2 Stratèges. Consultation gratuite et sans engagement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bleu-g2: #000826;
+  --gold-g2: #FDD300;
+  --gold-dark: #AA8D2B;
+  --gold-light: #fff38f;
+  --blanc-g2: #FAFBFF;
+  --gold-gradient: linear-gradient(135deg, #AA8D2B 0%, #FDD300 40%, #fff38f 60%, #FDD300 80%, #AA8D2B 100%);
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --sans: 'Source Sans 3', 'Segoe UI', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; }
+body {
+  font-family: var(--sans);
+  background: var(--blanc-g2);
+  color: #0a0e1a;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ========== HEADER ========== */
+.page-header {
+  background: var(--bleu-g2);
+  border-bottom: 1px solid rgba(253,211,0,0.12);
+}
+.header-inner {
+  max-width: 1100px; margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.header-inner img { height: 42px; }
+.header-home {
+  color: rgba(250,251,255,0.5); text-decoration: none;
+  font-size: 0.85rem; transition: color 0.3s;
+}
+.header-home:hover { color: var(--gold-g2); }
+
+/* ========== HERO BANNER ========== */
+.hero-banner {
+  background: var(--bleu-g2); text-align: center;
+  padding: 3rem 2rem 2.5rem;
+  position: relative; overflow: hidden;
+}
+.hero-banner::before {
+  content: ''; position: absolute; top: -40%; right: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(253,211,0,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-banner::after {
+  content: ''; position: absolute; bottom: -30%; left: -5%;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(253,211,0,0.04) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-content { position: relative; z-index: 1; max-width: 650px; margin: 0 auto; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(253,211,0,0.08); border: 1px solid rgba(253,211,0,0.2);
+  padding: 0.35rem 1rem; border-radius: 100px;
+  font-size: 0.75rem; color: var(--gold-g2); font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+.hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--gold-g2); border-radius: 50%; }
+.hero-content h1 {
+  font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 400; color: var(--blanc-g2); line-height: 1.2;
+  margin-bottom: 0.8rem;
+}
+.hero-content h1 em {
+  font-style: italic;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-content p {
+  font-size: 1rem; color: rgba(250,251,255,0.55); line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+.hero-features {
+  display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+}
+.hero-feature {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.85rem; color: rgba(250,251,255,0.5);
+}
+.hero-feature .check {
+  width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+  background: rgba(253,211,0,0.1); border-radius: 50%;
+  font-size: 0.7rem; color: var(--gold-g2);
+}
+
+/* ========== BOOKING SECTION ========== */
+.booking-section {
+  flex: 1; display: flex; flex-direction: column;
+  max-width: 1100px; width: 100%; margin: 0 auto;
+  padding: 0 2rem;
+}
+.booking-frame-wrapper {
+  flex: 1; margin: -1.5rem auto 0; width: 100%; max-width: 1000px;
+  background: #fff;
+  box-shadow: 0 10px 50px rgba(0,8,38,0.1);
+  border: 1px solid rgba(0,8,38,0.06);
+  position: relative; z-index: 2;
+  min-height: 650px;
+  display: flex; flex-direction: column;
+}
+.booking-loading {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: #fff; z-index: 3;
+  transition: opacity 0.4s ease;
+}
+.booking-loading.hidden { opacity: 0; pointer-events: none; }
+.loading-spinner {
+  width: 40px; height: 40px;
+  border: 3px solid rgba(0,8,38,0.08);
+  border-top-color: var(--gold-g2);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 1rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.booking-loading p { font-size: 0.9rem; color: #4a5068; }
+.booking-frame-wrapper iframe {
+  flex: 1; width: 100%; border: none; min-height: 650px;
+}
+
+/* ========== INFO BAR ========== */
+.info-bar {
+  max-width: 1000px; width: 100%; margin: 1.5rem auto 0;
+  display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+  padding: 1.5rem 2rem;
+  background: var(--bleu-g2);
+  border: 1px solid rgba(253,211,0,0.1);
+}
+.info-item { display: flex; align-items: center; gap: 0.8rem; }
+.info-icon {
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(253,211,0,0.08); border-radius: 8px;
+  font-size: 1.1rem;
+}
+.info-text { text-align: left; }
+.info-label { font-size: 0.7rem; color: rgba(250,251,255,0.35); text-transform: uppercase; letter-spacing: 0.08em; }
+.info-value { font-size: 0.9rem; color: var(--blanc-g2); font-weight: 600; }
+.info-value a { color: var(--gold-g2); text-decoration: none; }
+.info-value a:hover { text-decoration: underline; }
+
+/* ========== QUIZ LINK ========== */
+.quiz-link {
+  max-width: 1000px; width: 100%; margin: 1rem auto 0;
+  text-align: center; padding: 1.2rem 2rem;
+  background: rgba(0,8,38,0.02);
+  border: 1px solid rgba(0,8,38,0.05);
+}
+.quiz-link p { font-size: 0.88rem; color: #4a5068; display: inline; }
+.quiz-link a {
+  color: var(--gold-dark); text-decoration: none; font-weight: 700;
+  margin-left: 0.3rem;
+}
+.quiz-link a:hover { text-decoration: underline; }
+
+/* ========== FOOTER ========== */
+footer {
+  margin-top: 2.5rem;
+  padding: 1.5rem 2rem; text-align: center;
+  font-size: 0.75rem; color: rgba(0,8,38,0.3);
+  border-top: 1px solid rgba(0,8,38,0.06);
+}
+footer a { color: var(--gold-dark); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .hero-banner { padding: 2rem 1.2rem 2rem; }
+  .hero-features { gap: 1rem; }
+  .booking-section { padding: 0 1rem; }
+  .booking-frame-wrapper { min-height: 550px; }
+  .booking-frame-wrapper iframe { min-height: 550px; }
+  .info-bar { flex-direction: column; gap: 1rem; align-items: flex-start; padding: 1.2rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="header-inner">
+    <a href="index.html"><img src="logo.png" alt="G2 Stratèges"></a>
+    <a href="index.html" class="header-home">← Retour au site</a>
+  </div>
+</header>
+
+<!-- HERO BANNER -->
+<div class="hero-banner">
+  <div class="hero-content">
+    <div class="hero-badge">Consultation gratuite</div>
+    <h1>Réservez votre <em>rendez-vous</em></h1>
+    <p>Choisissez le créneau qui vous convient. Vous serez jumelé automatiquement avec le conseiller disponible.</p>
+    <div class="hero-features">
+      <div class="hero-feature"><span class="check">✓</span> Gratuit, sans engagement</div>
+      <div class="hero-feature"><span class="check">✓</span> 60 minutes</div>
+      <div class="hero-feature"><span class="check">✓</span> En personne ou virtuel</div>
+      <div class="hero-feature"><span class="check">✓</span> Confidentiel</div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING -->
+<section class="booking-section">
+  <div class="booking-frame-wrapper">
+    <div class="booking-loading" id="bookingLoading">
+      <div class="loading-spinner"></div>
+      <p>Chargement du calendrier...</p>
+    </div>
+    <!--
+      ====================================================
+
+      REMPLACEZ L'URL CI-DESSOUS PAR VOTRE LIEN
+      MICROSOFT BOOKINGS.
+
+      Le lien ressemble à :
+      https://outlook.office365.com/book/G2Strateges@votredomaine.com/
+
+      Pour obtenir le lien :
+      1. Allez dans Microsoft Bookings
+      2. Page de réservation > Enregistrer et publier
+      3. Copiez le lien de la page
+
+      ====================================================
+    -->
+    <iframe
+      src="https://outlook.office365.com/book/VOTRE-LIEN-ICI"
+      id="bookingIframe"
+      title="Réservation G2 Stratèges"
+      scrolling="yes"
+      onload="document.getElementById('bookingLoading').classList.add('hidden')"
+    ></iframe>
+  </div>
+
+  <!-- INFO BAR -->
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-icon">📍</div>
+      <div class="info-text">
+        <div class="info-label">Adresse</div>
+        <div class="info-value">100 Robinson Sud, Bur. 122, Granby</div>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">📞</div>
+      <div class="info-text">
+        <div class="info-label">Téléphone</div>
+        <div class="info-value"><a href="tel:4503724054">450-372-4054</a></div>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">📞</div>
+      <div class="info-text">
+        <div class="info-label">Sans frais</div>
+        <div class="info-value"><a href="tel:18888408438">1-888-840-8438</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ LINK -->
+  <div class="quiz-link">
+    <p>Vous ne savez pas quel service choisir?</p>
+    <a href="quiz.html">Faites notre quiz rapide →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  G2 Stratèges Services Financiers · Industrielle Alliance Assurance et Services Financiers Inc.* — *Cabinet de services financiers
+  <br>© 2026 Tous droits réservés
+</footer>
+
+</body>
+</html>
