@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <script src="https://unpkg.com/lucide@latest"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>G2 Stratèges — Trouvez votre solution</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bleu-g2: #000826;
@@ -16,9 +15,10 @@
   --gold-light: #fff38f;
   --blanc-g2: #FAFBFF;
   --gold-gradient: linear-gradient(135deg, #AA8D2B 0%, #FDD300 40%, #fff38f 60%, #FDD300 80%, #AA8D2B 100%);
-  --text-dark: #0a0e1a;
-  --text-muted: #4a5068;
-  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --txt-2: rgba(250,251,255,.68);
+  --txt-3: rgba(250,251,255,.40);
+  --ligne: rgba(250,251,255,.09);
+  --serif: 'Source Serif 4', 'Georgia', serif;
   --sans: 'Source Sans 3', 'Segoe UI', sans-serif;
 }
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,42 +33,46 @@ body {
   overflow-x: hidden;
 }
 
-/* ========== AMBIENT BACKGROUND ========== */
+/* Ambient glow */
 body::before {
   content: ''; position: fixed; top: -30%; right: -15%;
   width: 700px; height: 700px;
   background: radial-gradient(circle, rgba(253,211,0,0.05) 0%, transparent 70%);
-  border-radius: 50%; pointer-events: none;
+  border-radius: 50%; pointer-events: none; z-index: 0;
 }
 body::after {
   content: ''; position: fixed; bottom: -20%; left: -10%;
   width: 500px; height: 500px;
   background: radial-gradient(circle, rgba(253,211,0,0.03) 0%, transparent 70%);
-  border-radius: 50%; pointer-events: none;
+  border-radius: 50%; pointer-events: none; z-index: 0;
 }
 
 /* ========== HEADER ========== */
 .quiz-header {
-  padding: 1.5rem 2rem;
+  padding: 1.2rem 2rem;
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 1px solid rgba(253,211,0,0.08);
+  border-bottom: 1px solid var(--ligne);
   position: relative; z-index: 10;
 }
-.quiz-header img { height: 40px; }
+.quiz-header img { height: 48px; }
 .header-home {
-  color: rgba(250,251,255,0.5); text-decoration: none;
-  font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem;
-  transition: color 0.3s;
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--txt-3); text-decoration: none;
+  font-size: 0.85rem; font-weight: 500;
+  transition: color 0.25s;
 }
 .header-home:hover { color: var(--gold-g2); }
+.header-home svg { transition: transform .2s; }
+.header-home:hover svg { transform: translateX(-3px); }
 
 /* ========== PROGRESS BAR ========== */
 .progress-wrapper {
   padding: 0 2rem; margin-top: 1.5rem;
   max-width: 700px; margin-left: auto; margin-right: auto; width: 100%;
+  position: relative; z-index: 1;
 }
 .progress-bar {
-  height: 3px; background: rgba(250,251,255,0.08);
+  height: 2px; background: rgba(250,251,255,.07);
   border-radius: 10px; overflow: hidden;
 }
 .progress-fill {
@@ -78,16 +82,28 @@ body::after {
 }
 .progress-label {
   display: flex; justify-content: space-between;
-  margin-top: 0.6rem; font-size: 0.75rem; color: rgba(250,251,255,0.3);
-  letter-spacing: 0.05em;
+  margin-top: 0.6rem; font-size: 0.73rem; color: var(--txt-3);
+  letter-spacing: 0.08em; text-transform: uppercase;
 }
 
 /* ========== QUIZ CONTAINER ========== */
 .quiz-container {
   flex: 1; display: flex; align-items: center; justify-content: center;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   position: relative; z-index: 1;
 }
+
+/* ========== STEP ICON — élégant, pas d'emoji ========== */
+.step-icon {
+  width: 72px; height: 72px;
+  margin: 0 auto 2rem;
+  background: rgba(253,211,0,.07);
+  border: 1px solid rgba(253,211,0,.2);
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold-g2);
+}
+.step-icon svg { width: 30px; height: 30px; }
 
 /* ========== STEP ========== */
 .step {
@@ -97,27 +113,18 @@ body::after {
 }
 .step.active {
   display: block;
-  animation: fadeInUp 0.5s ease forwards;
+  animation: fadeInUp 0.45s ease forwards;
 }
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(25px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
-.step-icon {
-  font-size: 2.5rem; margin-bottom: 1.5rem;
-  display: inline-block;
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-}
-
 .step h2 {
-  font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-  font-weight: 400; line-height: 1.2;
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 400; line-height: 1.18;
   margin-bottom: 0.8rem;
+  font-variation-settings: "opsz" 48;
 }
 .step h2 em {
   font-style: italic;
@@ -126,220 +133,258 @@ body::after {
   background-clip: text;
 }
 .step .subtitle {
-  font-size: 1.05rem; color: rgba(250,251,255,0.55);
-  line-height: 1.6; margin-bottom: 2.5rem; max-width: 550px;
-  margin-left: auto; margin-right: auto;
+  font-size: 1.02rem; color: var(--txt-2);
+  line-height: 1.6; margin-bottom: 2.5rem;
+  max-width: 520px; margin-left: auto; margin-right: auto;
 }
 
 /* ========== OPTION CARDS ========== */
-.options { display: grid; gap: 1rem; margin-top: 1rem; }
+.options { display: grid; gap: 14px; margin-top: 0.5rem; }
 .options.cols-2 { grid-template-columns: 1fr 1fr; }
 .options.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
-.options.cols-1 { grid-template-columns: 1fr; max-width: 500px; margin-left: auto; margin-right: auto; }
+.options.cols-1 { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
 
 .option-card {
-  background: rgba(250,251,255,0.03);
-  border: 1.5px solid rgba(253,211,0,0.1);
-  padding: 2rem 1.5rem;
+  background: rgba(250,251,255,.03);
+  border: 1px solid rgba(253,211,0,.1);
+  padding: 1.8rem 1.4rem;
   cursor: pointer;
-  transition: all 0.35s ease;
+  transition: all 0.3s ease;
   position: relative; overflow: hidden;
   text-align: center;
+  border-radius: 14px;
 }
 .option-card::before {
   content: ''; position: absolute; top: 0; left: 0;
-  width: 100%; height: 3px;
+  width: 100%; height: 2px;
   background: var(--gold-gradient);
   transform: scaleX(0); transform-origin: left;
-  transition: transform 0.35s ease;
+  transition: transform 0.3s ease;
 }
 .option-card:hover {
-  border-color: rgba(253,211,0,0.4);
-  background: rgba(253,211,0,0.05);
+  border-color: rgba(253,211,0,.35);
+  background: rgba(253,211,0,.04);
   transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 18px 48px rgba(0,0,0,.22);
 }
 .option-card:hover::before { transform: scaleX(1); }
 
+/* Picto de la carte — SVG dans un container raffiné */
 .option-icon {
-  font-size: 2rem; margin-bottom: 1rem;
-  display: block;
+  width: 52px; height: 52px;
+  margin: 0 auto 1.1rem;
+  background: rgba(253,211,0,.06);
+  border: 1px solid rgba(253,211,0,.14);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold-g2);
+  transition: background .3s, border-color .3s;
 }
+.option-card:hover .option-icon {
+  background: rgba(253,211,0,.12);
+  border-color: rgba(253,211,0,.3);
+}
+.option-icon svg { width: 22px; height: 22px; }
+
 .option-card h3 {
-  font-family: var(--serif); font-size: 1.3rem; font-weight: 600;
-  color: var(--blanc-g2); margin-bottom: 0.5rem;
+  font-family: var(--serif); font-size: 1.18rem; font-weight: 500;
+  color: var(--blanc-g2); margin-bottom: 0.45rem;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 24;
 }
 .option-card p {
-  font-size: 0.88rem; color: rgba(250,251,255,0.5);
-  line-height: 1.5;
+  font-size: 0.87rem; color: var(--txt-2); line-height: 1.5;
 }
 .option-card .arrow {
-  display: inline-block; margin-top: 1rem;
-  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--gold-g2);
-  opacity: 0; transform: translateX(-5px);
-  transition: all 0.3s ease;
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 1rem; font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold-g2); opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.25s ease;
 }
 .option-card:hover .arrow { opacity: 1; transform: translateX(0); }
 
 /* ========== BACK BUTTON ========== */
 .back-btn {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  background: none; border: none; color: rgba(250,251,255,0.35);
-  font-family: var(--sans); font-size: 0.85rem;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: none;
+  color: var(--txt-3); font-family: var(--sans); font-size: 0.85rem;
   cursor: pointer; margin-top: 2rem;
-  transition: color 0.3s;
+  transition: color 0.25s;
 }
 .back-btn:hover { color: var(--gold-g2); }
 
-/* ========== RESULT PAGE ========== */
+/* ========== RESULT ========== */
 .result-card {
-  background: rgba(250,251,255,0.03);
-  border: 1.5px solid rgba(253,211,0,0.15);
-  padding: 3rem 2.5rem; text-align: center;
-  max-width: 600px; margin: 0 auto;
+  background: rgba(250,251,255,.03);
+  border: 1px solid rgba(253,211,0,.14);
+  border-radius: 16px;
+  padding: 2.8rem 2.2rem; text-align: center;
+  max-width: 580px; margin: 0 auto;
 }
-.result-card .result-icon { font-size: 3rem; margin-bottom: 1.5rem; }
+.result-icon {
+  width: 72px; height: 72px;
+  margin: 0 auto 1.5rem;
+  background: rgba(253,211,0,.08);
+  border: 1px solid rgba(253,211,0,.22);
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold-g2);
+}
+.result-icon svg { width: 30px; height: 30px; }
+
 .result-card h2 {
-  font-family: var(--serif); font-size: 1.8rem; font-weight: 500;
-  margin-bottom: 0.6rem;
+  font-family: var(--serif); font-size: 1.75rem; font-weight: 500;
+  margin-bottom: 0.6rem; font-variation-settings: "opsz" 36;
 }
-.result-card .result-desc {
-  font-size: 1rem; color: rgba(250,251,255,0.6);
-  line-height: 1.7; margin-bottom: 2rem;
+.result-desc {
+  font-size: 1rem; color: var(--txt-2);
+  line-height: 1.7; margin-bottom: 1.8rem;
 }
-.result-card .result-tags {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
+.result-tags {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.45rem;
   margin-bottom: 2rem;
 }
 .result-tag {
-  background: rgba(253,211,0,0.08); border: 1px solid rgba(253,211,0,0.2);
-  padding: 0.35rem 0.9rem; border-radius: 100px;
-  font-size: 0.8rem; color: var(--gold-g2); font-weight: 600;
+  background: rgba(253,211,0,.07); border: 1px solid rgba(253,211,0,.18);
+  padding: 0.32rem 0.85rem; border-radius: 999px;
+  font-size: 0.78rem; color: var(--gold-g2); font-weight: 600;
+  letter-spacing: 0.04em;
 }
+
+/* ========== BUTTONS ========== */
 .btn-primary {
-  display: inline-flex; align-items: center; gap: 0.5rem;
+  display: inline-flex; align-items: center; gap: 8px;
   background: var(--gold-g2); color: var(--bleu-g2);
-  padding: 1rem 2.2rem; font-family: var(--sans);
-  font-size: 1rem; font-weight: 700; text-decoration: none;
-  border: none; cursor: pointer;
-  transition: all 0.3s ease;
+  padding: 0.95rem 2.2rem; font-family: var(--sans);
+  font-size: 0.98rem; font-weight: 700; text-decoration: none;
+  border: none; cursor: pointer; border-radius: 999px;
+  transition: all 0.25s ease;
 }
 .btn-primary:hover {
   background: var(--gold-light); transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(253,211,0,0.25);
+  box-shadow: 0 8px 30px rgba(253,211,0,.22);
 }
 .btn-outline {
-  display: inline-flex; align-items: center; gap: 0.5rem;
+  display: inline-flex; align-items: center; gap: 8px;
   background: transparent; color: var(--blanc-g2);
   padding: 0.8rem 1.8rem; font-family: var(--sans);
-  font-size: 0.9rem; font-weight: 600; text-decoration: none;
-  border: 1.5px solid rgba(250,251,255,0.2);
-  cursor: pointer; transition: all 0.3s;
+  font-size: 0.88rem; font-weight: 600; text-decoration: none;
+  border: 1px solid rgba(250,251,255,.18); border-radius: 999px;
+  cursor: pointer; transition: all 0.25s;
   margin-top: 0.8rem;
 }
 .btn-outline:hover { border-color: var(--gold-g2); color: var(--gold-g2); }
 
 .result-contact {
-  margin-top: 2rem; padding-top: 1.5rem;
-  border-top: 1px solid rgba(250,251,255,0.06);
-  font-size: 0.85rem; color: rgba(250,251,255,0.4);
+  margin-top: 2rem; padding-top: 1.4rem;
+  border-top: 1px solid var(--ligne);
+  font-size: 0.85rem; color: var(--txt-3);
 }
 .result-contact a { color: var(--gold-g2); text-decoration: none; }
 .result-contact a:hover { text-decoration: underline; }
 
-/* ========== FOOTER ========== */
-.quiz-footer {
-  padding: 1.5rem 2rem; text-align: center;
-  font-size: 0.75rem; color: rgba(250,251,255,0.2);
-  border-top: 1px solid rgba(253,211,0,0.05);
-}
-.quiz-footer a { color: var(--gold-g2); text-decoration: none; opacity: 0.5; }
-.quiz-footer a:hover { opacity: 1; }
-
 /* ========== CONTACT FORM ========== */
 .contact-form-wrapper {
-  max-width: 650px; margin: 2rem auto 0; width: 100%;
-  background: rgba(250,251,255,0.03);
-  border: 1.5px solid rgba(253,211,0,0.1);
-  overflow: hidden;
+  max-width: 640px; margin: 2rem auto 0; width: 100%;
+  background: rgba(250,251,255,.03);
+  border: 1px solid rgba(253,211,0,.1);
+  border-radius: 16px; overflow: hidden;
 }
 .form-header {
   padding: 2rem 2rem 1.5rem; text-align: center;
-  border-bottom: 1px solid rgba(253,211,0,0.08);
+  border-bottom: 1px solid var(--ligne);
 }
-.form-header-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+.form-header-icon {
+  width: 52px; height: 52px;
+  margin: 0 auto 1rem;
+  background: rgba(253,211,0,.08);
+  border: 1px solid rgba(253,211,0,.2);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold-g2);
+}
+.form-header-icon svg { width: 22px; height: 22px; }
 .form-header h3 {
   font-family: var(--serif); font-size: 1.5rem; font-weight: 500;
   color: var(--blanc-g2); margin-bottom: 0.4rem;
+  font-variation-settings: "opsz" 24;
 }
-.form-header p { font-size: 0.9rem; color: rgba(250,251,255,0.5); line-height: 1.5; }
+.form-header p { font-size: 0.9rem; color: var(--txt-2); line-height: 1.5; }
+
 .form-body { padding: 2rem; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
 .form-group { text-align: left; }
 .form-group.full-width { margin-bottom: 1rem; }
 .form-group label {
   display: block; font-size: 0.82rem; font-weight: 600;
-  color: rgba(250,251,255,0.7); margin-bottom: 0.4rem;
+  color: rgba(250,251,255,.65); margin-bottom: 0.4rem; letter-spacing: 0.02em;
 }
 .required { color: var(--gold-g2); }
-.optional { color: rgba(250,251,255,0.3); font-weight: 400; }
+.optional { color: var(--txt-3); font-weight: 400; }
 .form-group input, .form-group textarea {
-  width: 100%; padding: 0.75rem 1rem;
-  background: rgba(250,251,255,0.05);
-  border: 1.5px solid rgba(250,251,255,0.1);
+  width: 100%; padding: 0.72rem 1rem;
+  background: rgba(250,251,255,.04);
+  border: 1px solid rgba(250,251,255,.1); border-radius: 8px;
   color: var(--blanc-g2); font-family: var(--sans); font-size: 0.95rem;
-  transition: border-color 0.3s; outline: none;
+  transition: border-color 0.25s; outline: none;
 }
-.form-group input::placeholder, .form-group textarea::placeholder { color: rgba(250,251,255,0.25); }
+.form-group input::placeholder, .form-group textarea::placeholder { color: rgba(250,251,255,.22); }
 .form-group input:focus, .form-group textarea:focus {
-  border-color: var(--gold-g2); background: rgba(253,211,0,0.03);
+  border-color: var(--gold-g2); background: rgba(253,211,0,.03);
 }
-.form-group textarea { resize: vertical; min-height: 80px; }
 .form-group input.error { border-color: #e74c3c; }
+.form-group textarea { resize: vertical; min-height: 80px; }
+
 .moment-options { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 .moment-chip { cursor: pointer; }
 .moment-chip input { display: none; }
 .moment-chip span {
-  display: inline-block; padding: 0.5rem 1rem;
+  display: inline-block; padding: 0.48rem 1rem; border-radius: 999px;
   font-size: 0.82rem; font-weight: 600;
-  border: 1.5px solid rgba(250,251,255,0.1);
-  background: rgba(250,251,255,0.03);
-  color: rgba(250,251,255,0.5); transition: all 0.3s; cursor: pointer;
+  border: 1px solid rgba(250,251,255,.1);
+  background: rgba(250,251,255,.03);
+  color: rgba(250,251,255,.45); transition: all 0.25s; cursor: pointer;
 }
 .moment-chip input:checked + span {
-  border-color: var(--gold-g2); background: rgba(253,211,0,0.08); color: var(--gold-g2);
+  border-color: var(--gold-g2); background: rgba(253,211,0,.08); color: var(--gold-g2);
 }
-.moment-chip:hover span { border-color: rgba(253,211,0,0.4); }
+.moment-chip:hover span { border-color: rgba(253,211,0,.35); }
+
 .consent-section {
   margin-top: 1.5rem; padding-top: 1.5rem;
-  border-top: 1px solid rgba(250,251,255,0.06);
+  border-top: 1px solid var(--ligne);
 }
 .consent-header {
-  display: flex; align-items: center; gap: 0.5rem;
-  font-size: 0.82rem; font-weight: 700; color: rgba(250,251,255,0.6);
-  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.82rem; font-weight: 700; color: rgba(250,251,255,.55);
+  margin-bottom: 1rem; letter-spacing: 0.04em; text-transform: uppercase;
 }
-.consent-icon { font-size: 1rem; }
+.consent-header svg { color: var(--gold-g2); width: 16px; height: 16px; flex: none; }
+
 .consent-checkbox {
   display: flex; align-items: flex-start; gap: 0.7rem;
   cursor: pointer; margin-bottom: 0.8rem;
-  padding: 0.6rem 0.8rem;
-  background: rgba(250,251,255,0.02);
-  border: 1px solid rgba(250,251,255,0.05);
-  transition: background 0.3s;
+  padding: 0.65rem 0.85rem; border-radius: 8px;
+  background: rgba(250,251,255,.02);
+  border: 1px solid rgba(250,251,255,.05);
+  transition: background 0.25s;
 }
-.consent-checkbox:hover { background: rgba(250,251,255,0.04); }
+.consent-checkbox:hover { background: rgba(250,251,255,.04); }
 .consent-checkbox input { display: none; }
 .checkmark {
   width: 20px; height: 20px; min-width: 20px;
-  border: 2px solid rgba(250,251,255,0.2);
+  border: 1.5px solid rgba(250,251,255,.22); border-radius: 4px;
   display: flex; align-items: center; justify-content: center;
-  transition: all 0.3s; margin-top: 1px;
+  transition: all 0.25s; margin-top: 1px;
 }
 .checkmark::after {
-  content: '✓'; font-size: 0.75rem; color: var(--bleu-g2);
-  opacity: 0; transition: opacity 0.2s; font-weight: 700;
+  content: ''; width: 5px; height: 9px;
+  border-right: 2px solid var(--bleu-g2);
+  border-bottom: 2px solid var(--bleu-g2);
+  transform: rotate(45deg) translate(-1px, -1px);
+  opacity: 0; transition: opacity 0.2s;
 }
 .consent-checkbox input:checked ~ .checkmark {
   background: var(--gold-g2); border-color: var(--gold-g2);
@@ -353,61 +398,83 @@ body::after {
   75% { transform: translateX(5px); }
 }
 .consent-text {
-  font-size: 0.82rem; color: rgba(250,251,255,0.55);
-  line-height: 1.5; text-align: left;
+  font-size: 0.82rem; color: var(--txt-2); line-height: 1.55; text-align: left;
 }
 .consent-details {
-  margin-top: 1rem; padding: 1rem;
-  background: rgba(250,251,255,0.02);
-  border: 1px solid rgba(250,251,255,0.04);
+  margin-top: 1rem; padding: 1rem; border-radius: 8px;
+  background: rgba(250,251,255,.02);
+  border: 1px solid rgba(250,251,255,.05);
 }
 .consent-details p {
-  font-size: 0.78rem; color: rgba(250,251,255,0.35);
-  line-height: 1.6; margin-bottom: 0.5rem;
+  font-size: 0.78rem; color: var(--txt-3); line-height: 1.6; margin-bottom: 0.5rem;
 }
 .consent-details p:last-child { margin-bottom: 0; }
 .consent-details a { color: var(--gold-g2); text-decoration: none; }
 .consent-details a:hover { text-decoration: underline; }
-.consent-details strong { color: rgba(250,251,255,0.5); }
+.consent-details strong { color: rgba(250,251,255,.45); }
+
 .form-submit {
-  width: 100%; margin-top: 1.5rem; justify-content: center;
-  font-size: 1rem; padding: 1rem;
+  width: 100%; margin-top: 1.5rem; justify-content: center; border-radius: 8px;
+  font-size: 0.98rem; padding: 1rem;
 }
 .form-success {
-  display: none; text-align: center; padding: 2rem;
-  background: rgba(46,204,113,0.08);
-  border: 1px solid rgba(46,204,113,0.2);
+  display: none; text-align: center; padding: 2rem; border-radius: 10px;
+  background: rgba(46,204,113,.07); border: 1px solid rgba(46,204,113,.2);
   margin-top: 1.5rem;
 }
-.form-success.visible { display: block; animation: fadeInUp 0.5s ease; }
-.success-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+.form-success.visible { display: block; animation: fadeInUp 0.45s ease; }
+.success-icon {
+  width: 56px; height: 56px;
+  margin: 0 auto 1rem;
+  background: rgba(46,204,113,.1);
+  border: 1px solid rgba(46,204,113,.25);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #2ecc71;
+}
+.success-icon svg { width: 24px; height: 24px; }
 .form-success h4 {
-  font-family: var(--serif); font-size: 1.3rem; font-weight: 600;
+  font-family: var(--serif); font-size: 1.3rem; font-weight: 500;
   color: var(--blanc-g2); margin-bottom: 0.4rem;
 }
-.form-success p { font-size: 0.9rem; color: rgba(250,251,255,0.6); }
+.form-success p { font-size: 0.9rem; color: var(--txt-2); }
 .form-error {
-  display: none; text-align: center; padding: 0.8rem;
-  background: rgba(231,76,60,0.08);
-  border: 1px solid rgba(231,76,60,0.2);
+  display: none; text-align: center; padding: 0.8rem; border-radius: 8px;
+  background: rgba(231,76,60,.07); border: 1px solid rgba(231,76,60,.2);
   margin-top: 1rem; font-size: 0.85rem; color: #e74c3c;
 }
 .form-error.visible { display: block; }
 .form-footer {
   padding: 1.5rem 2rem; text-align: center;
-  border-top: 1px solid rgba(250,251,255,0.06);
+  border-top: 1px solid var(--ligne);
 }
+
+/* ========== FOOTER ========== */
+.quiz-footer {
+  padding: 1.5rem 2rem; text-align: center;
+  font-size: 0.73rem; color: var(--txt-3);
+  border-top: 1px solid var(--ligne);
+  position: relative; z-index: 1;
+  letter-spacing: 0.02em;
+}
+.quiz-footer a { color: var(--gold-dark); text-decoration: none; opacity: .65; }
+.quiz-footer a:hover { opacity: 1; }
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 600px) {
   .options.cols-2, .options.cols-3 { grid-template-columns: 1fr; }
-  .option-card { padding: 1.5rem 1.2rem; }
-  .result-card { padding: 2rem 1.5rem; }
+  .option-card { padding: 1.4rem 1.1rem; }
+  .result-card { padding: 2rem 1.4rem; }
   .quiz-header { padding: 1rem 1.2rem; }
   .form-row { grid-template-columns: 1fr; }
-  .form-body { padding: 1.5rem; }
+  .form-body { padding: 1.4rem; }
   .moment-options { flex-direction: column; }
+  .step-icon { width: 60px; height: 60px; }
+  .step-icon svg { width: 24px; height: 24px; }
 }
+
+::selection { background: var(--gold-g2); color: var(--bleu-g2); }
+:focus-visible { outline: 2px solid var(--gold-g2); outline-offset: 3px; border-radius: 4px; }
 </style>
 </head>
 <body>
@@ -415,7 +482,10 @@ body::after {
 <!-- HEADER -->
 <header class="quiz-header">
   <a href="index.html"><img src="logo.png" alt="G2 Stratèges"></a>
-  <a href="index.html" class="header-home">← Retour au site</a>
+  <a href="index.html" class="header-home">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Retour au site
+  </a>
 </header>
 
 <!-- PROGRESS -->
@@ -430,14 +500,24 @@ body::after {
 <!-- QUIZ -->
 <main class="quiz-container">
 
-  <!-- ===== STEP 0: WELCOME ===== -->
+  <!-- STEP 0: WELCOME -->
   <div class="step active" data-step="0">
-    <div class="step-icon"><i data-lucide="compass"></i></div>
+    <div class="step-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/>
+        <line x1="12" y1="3" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="21"/>
+        <line x1="3" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="21" y2="12"/>
+      </svg>
+    </div>
     <h2>Trouvez la solution <em>adaptée à vos besoins</em></h2>
     <p class="subtitle">Répondez à quelques questions pour découvrir comment G2 Stratèges peut vous accompagner. Ça prend moins de 60 secondes.</p>
     <div class="options cols-1">
       <div class="option-card" onclick="goTo(1)">
-        <span class="option-icon"><i data-lucide="rocket"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </div>
         <h3>Commencer</h3>
         <p>Découvrez nos solutions personnalisées</p>
         <span class="arrow">C'est parti →</span>
@@ -445,20 +525,33 @@ body::after {
     </div>
   </div>
 
-  <!-- ===== STEP 1: PROFIL ===== -->
+  <!-- STEP 1: PROFIL -->
   <div class="step" data-step="1">
-    <div class="step-icon">👤</div>
+    <div class="step-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+    </div>
     <h2>Quel est votre <em>profil</em>?</h2>
     <p class="subtitle">Cela nous aide à vous orienter vers les bonnes solutions.</p>
     <div class="options cols-2">
       <div class="option-card" onclick="setAnswer('profil','entrepreneur'); goTo(2)">
-        <span class="option-icon">🏢</span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="9" width="18" height="12" rx="1"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/>
+            <line x1="12" y1="14" x2="12" y2="17"/>
+          </svg>
+        </div>
         <h3>Entrepreneur / PME</h3>
         <p>Je suis propriétaire ou dirigeant d'une entreprise</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('profil','particulier'); goTo(10)">
-        <span class="option-icon"><i data-lucide="home"></i></div>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 11l9-7 9 7v10H3z"/><path d="M9 21V13h6v8"/>
+          </svg>
+        </div>
         <h3>Particulier</h3>
         <p>Je cherche des solutions pour ma situation personnelle</p>
         <span class="arrow">Sélectionner →</span>
@@ -467,32 +560,52 @@ body::after {
     <button class="back-btn" onclick="goTo(0)">← Retour</button>
   </div>
 
-  <!-- ===== STEP 2: ENTREPRENEUR - BESOIN ===== -->
+  <!-- STEP 2: ENTREPRENEUR - BESOIN -->
   <div class="step" data-step="2">
-    <div class="step-icon"><i data-lucide="target"></i></div>
+    <div class="step-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="8"/>
+      </svg>
+    </div>
     <h2>Quel est votre <em>besoin principal</em>?</h2>
     <p class="subtitle">Choisissez ce qui décrit le mieux votre priorité actuelle.</p>
     <div class="options cols-2">
       <div class="option-card" onclick="setAnswer('besoin','protection'); goTo(3)">
-        <span class="option-icon">🛡</span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L4 6v6c0 5 3.8 9.3 8 10 4.2-.7 8-5 8-10V6l-8-4z"/>
+          </svg>
+        </div>
         <h3>Protection & assurance</h3>
         <p>Assurance vie, invalidité, maladies graves, personne clé</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('besoin','epargne'); goTo(4)">
-        <span class="option-icon"><i data-lucide="wallet"></i></div>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 17 8 12 13 15 21 6"/><line x1="21" y1="6" x2="21" y2="13"/><line x1="15" y1="6" x2="21" y2="6"/>
+          </svg>
+        </div>
         <h3>Épargne & placements</h3>
         <p>REER, CELI, régimes collectifs, optimisation corporative</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('besoin','succession'); goTo(5)">
-        <span class="option-icon"><i data-lucide="refresh-cw"></i></div>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 12a9 9 0 0 1-15 6.7L3 16"/><line x1="21" y1="4" x2="21" y2="8"/><line x1="21" y1="8" x2="17" y2="8"/><line x1="3" y1="20" x2="3" y2="16"/><line x1="3" y1="16" x2="7" y2="16"/>
+          </svg>
+        </div>
         <h3>Succession & transfert</h3>
         <p>Planification successorale, transfert d'entreprise, relève</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('besoin','global'); goTo(6)">
-        <span class="option-icon"><i data-lucide="bar-chart-3"></i></div>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="14" width="4" height="7"/><rect x="10" y="9" width="4" height="12"/><rect x="17" y="4" width="4" height="17"/>
+          </svg>
+        </div>
         <h3>Stratégie globale</h3>
         <p>J'ai besoin d'un portrait complet de ma situation</p>
         <span class="arrow">Sélectionner →</span>
@@ -501,32 +614,57 @@ body::after {
     <button class="back-btn" onclick="goTo(1)">← Retour</button>
   </div>
 
-  <!-- ===== STEP 3: PROTECTION - DÉTAIL ===== -->
+  <!-- STEP 3: PROTECTION -->
   <div class="step" data-step="3">
-    <div class="step-icon">🛡</div>
+    <div class="step-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L4 6v6c0 5 3.8 9.3 8 10 4.2-.7 8-5 8-10V6l-8-4z"/>
+        <polyline points="9 12 11 14 15 10"/>
+      </svg>
+    </div>
     <h2>Quel type de <em>protection</em> recherchez-vous?</h2>
     <p class="subtitle">Plusieurs options peuvent se combiner. Choisissez votre priorité.</p>
     <div class="options cols-2">
       <div class="option-card" onclick="setAnswer('protection','vie'); showResult('assurance-vie-corp')">
-        <span class="option-icon"><i data-lucide="heart"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
         <h3>Assurance vie corporative</h3>
         <p>Convention entre actionnaires, personne clé, protection du prêt</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('protection','invalidite'); showResult('invalidite-corp')">
-        <span class="option-icon"><i data-lucide="activity"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 12 6 8 9 10 12 4 15 11 18 8 21 12"/>
+          </svg>
+        </div>
         <h3>Invalidité & maladies graves</h3>
         <p>Maintien du revenu, frais généraux, protection de l'entreprise</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('protection','collectif'); showResult('regime-collectif')">
-        <span class="option-icon"><i data-lucide="users"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="7" r="3"/><circle cx="17" cy="8" r="2.5"/>
+            <path d="M2 19c0-3 2.7-5 7-5s7 2 7 5"/>
+            <path d="M16 14c2.5 0 5 1.3 5 4"/>
+          </svg>
+        </div>
         <h3>Régime collectif</h3>
         <p>Assurance groupe pour mes employés, avantages sociaux</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('protection','tout'); showResult('protection-complete')">
-        <span class="option-icon"><i data-lucide="lock"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="11" width="14" height="11" rx="2"/>
+            <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+            <circle cx="12" cy="16" r="1" fill="currentColor"/>
+          </svg>
+        </div>
         <h3>Protection complète</h3>
         <p>Je veux couvrir tous les angles pour mon entreprise</p>
         <span class="arrow">Sélectionner →</span>
@@ -535,32 +673,63 @@ body::after {
     <button class="back-btn" onclick="goTo(2)">← Retour</button>
   </div>
 
-  <!-- ===== STEP 4: ÉPARGNE - DÉTAIL ===== -->
+  <!-- STEP 4: ÉPARGNE -->
   <div class="step" data-step="4">
-    <div class="step-icon"><i data-lucide="wallet"></i></span>
+    <div class="step-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="3 17 8 12 13 15 21 6"/>
+        <line x1="21" y1="6" x2="21" y2="13"/><line x1="15" y1="6" x2="21" y2="6"/>
+      </svg>
+    </div>
     <h2>Quel est votre objectif <em>d'épargne</em>?</h2>
     <p class="subtitle">Choisissez ce qui correspond le mieux à votre situation.</p>
     <div class="options cols-2">
       <div class="option-card" onclick="setAnswer('epargne','retraite'); showResult('retraite-corp')">
-        <span class="option-icon"><i data-lucide="landmark"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3C7 3 3 7 3 12h18c0-5-4-9-9-9z"/>
+            <line x1="3" y1="12" x2="21" y2="12"/><line x1="12" y1="12" x2="12" y2="19"/>
+            <circle cx="12" cy="20" r="1" fill="currentColor"/>
+          </svg>
+        </div>
         <h3>Planifier ma retraite</h3>
         <p>Optimiser mes cotisations et préparer ma sortie</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('epargne','corporatif'); showResult('epargne-corp')">
-        <span class="option-icon"><i data-lucide="banknote"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="14" rx="2"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+            <line x1="7" y1="15" x2="10" y2="15"/>
+            <circle cx="16" cy="15" r="1.5"/>
+          </svg>
+        </div>
         <h3>Surplus corporatifs</h3>
         <p>Placer les liquidités excédentaires de mon entreprise</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('epargne','fiscal'); showResult('optimisation-fiscale')">
-        <span class="option-icon"><i data-lucide="file-text"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="9" y1="13" x2="15" y2="13"/>
+            <line x1="9" y1="17" x2="12" y2="17"/>
+          </svg>
+        </div>
         <h3>Optimisation fiscale</h3>
         <p>Rémunération optimale : salaire vs dividende, REER, CELI, etc.</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('epargne','employes'); showResult('regime-collectif-epargne')">
-        <span class="option-icon"><i data-lucide="users"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="7" r="3"/><circle cx="17" cy="8" r="2.5"/>
+            <path d="M2 19c0-3 2.7-5 7-5s7 2 7 5"/>
+            <path d="M16 14c2.5 0 5 1.3 5 4"/>
+          </svg>
+        </div>
         <h3>Régime pour employés</h3>
         <p>RPDB, REER collectif, régime de retraite simplifié</p>
         <span class="arrow">Sélectionner →</span>
@@ -569,26 +738,47 @@ body::after {
     <button class="back-btn" onclick="goTo(2)">← Retour</button>
   </div>
 
-  <!-- ===== STEP 5: SUCCESSION ===== -->
+  <!-- STEP 5: SUCCESSION -->
   <div class="step" data-step="5">
-    <div class="step-icon">🔄</div>
+    <div class="step-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 12a9 9 0 0 1-15 6.7L3 16"/>
+        <line x1="21" y1="4" x2="21" y2="8"/><line x1="21" y1="8" x2="17" y2="8"/>
+        <line x1="3" y1="20" x2="3" y2="16"/><line x1="3" y1="16" x2="7" y2="16"/>
+      </svg>
+    </div>
     <h2>Où en êtes-vous dans votre <em>réflexion</em>?</h2>
     <p class="subtitle">Le transfert d'entreprise est un processus. Dites-nous où vous en êtes.</p>
     <div class="options cols-3">
       <div class="option-card" onclick="showResult('succession-debut')">
-        <span class="option-icon">🌱</span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22c4-2 8-6 8-10a8 8 0 0 0-16 0c0 4 4 8 8 10z"/>
+            <path d="M12 22V12"/><path d="M8 16l4-4 4 4"/>
+          </svg>
+        </div>
         <h3>Je commence à y penser</h3>
         <p>C'est encore loin, mais je veux me préparer</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('succession-planif')">
-        <span class="option-icon"><i data-lucide="ruler"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="20" x2="20" y2="4"/>
+            <path d="M14 4h6v6"/><path d="M4 14v6h6"/>
+          </svg>
+        </div>
         <h3>Je suis en planification</h3>
         <p>J'ai identifié un repreneur ou une relève</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('succession-urgent')">
-        <span class="option-icon"><i data-lucide="clock"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <polyline points="12 7 12 12 15 14"/>
+          </svg>
+        </div>
         <h3>C'est urgent</h3>
         <p>Le transfert est prévu prochainement</p>
         <span class="arrow">Sélectionner →</span>
@@ -597,26 +787,47 @@ body::after {
     <button class="back-btn" onclick="goTo(2)">← Retour</button>
   </div>
 
-  <!-- ===== STEP 6: GLOBAL ===== -->
+  <!-- STEP 6: GLOBAL -->
   <div class="step" data-step="6">
-    <div class="step-icon"><i data-lucide="bar-chart-3"></i></div>
+    <div class="step-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="14" width="4" height="7"/><rect x="10" y="9" width="4" height="12"/><rect x="17" y="4" width="4" height="17"/>
+      </svg>
+    </div>
     <h2>Depuis combien de temps <em>êtes-vous en affaires</em>?</h2>
     <p class="subtitle">Cela nous aide à calibrer notre accompagnement.</p>
     <div class="options cols-3">
       <div class="option-card" onclick="showResult('global-startup')">
-        <span class="option-icon"><i data-lucide="rocket"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10"/>
+            <path d="M12 2l4 4-4 4"/>
+            <path d="M20 2l-4 4 4 4"/>
+          </svg>
+        </div>
         <h3>0 – 3 ans</h3>
         <p>Entreprise en démarrage</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('global-croissance')">
-        <span class="option-icon"><i data-lucide="bar-chart-3"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="14" width="4" height="7"/><rect x="10" y="9" width="4" height="12"/><rect x="17" y="4" width="4" height="17"/>
+          </svg>
+        </div>
         <h3>3 – 10 ans</h3>
         <p>En phase de croissance</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('global-mature')">
-        <span class="option-icon"><i data-lucide="building-2"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="20" x2="20" y2="20"/>
+            <rect x="6" y="12" width="3" height="8"/>
+            <rect x="10.5" y="7" width="3" height="13"/>
+            <rect x="15" y="3" width="3" height="17"/>
+          </svg>
+        </div>
         <h3>10 ans et plus</h3>
         <p>Entreprise bien établie</p>
         <span class="arrow">Sélectionner →</span>
@@ -625,32 +836,62 @@ body::after {
     <button class="back-btn" onclick="goTo(2)">← Retour</button>
   </div>
 
-  <!-- ===== STEP 10: PARTICULIER - BESOIN ===== -->
+  <!-- STEP 10: PARTICULIER -->
   <div class="step" data-step="10">
-    <div class="step-icon"><i data-lucide="home"></i></span>
+    <div class="step-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 11l9-7 9 7v10H3z"/><path d="M9 21V13h6v8"/>
+      </svg>
+    </div>
     <h2>Comment pouvons-nous <em>vous aider</em>?</h2>
     <p class="subtitle">Choisissez la situation qui vous ressemble le plus.</p>
     <div class="options cols-2">
       <div class="option-card" onclick="showResult('particulier-assurance')">
-        <span class="option-icon">🛡</span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L4 6v6c0 5 3.8 9.3 8 10 4.2-.7 8-5 8-10V6l-8-4z"/>
+          </svg>
+        </div>
         <h3>Protéger ma famille</h3>
         <p>Assurance vie, invalidité, maladies graves</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('particulier-epargne')">
-        <span class="option-icon"><i data-lucide="wallet"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 17 8 12 13 15 21 6"/>
+            <line x1="21" y1="6" x2="21" y2="13"/><line x1="15" y1="6" x2="21" y2="6"/>
+          </svg>
+        </div>
         <h3>Épargner pour l'avenir</h3>
         <p>REER, CELI, CELIAPP, REEE, placements</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('particulier-retraite')">
-        <span class="option-icon"><i data-lucide="sun"></i></span>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="2" y1="12" x2="4" y2="12"/>
+            <line x1="20" y1="12" x2="22" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </div>
         <h3>Planifier ma retraite</h3>
         <p>Stratégie de décaissement, optimisation fiscale</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('particulier-global')">
-        <span class="option-icon"><i data-lucide="compass"></i></div>
+        <div class="option-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/>
+            <line x1="12" y1="3" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="21"/>
+            <line x1="3" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="21" y2="12"/>
+          </svg>
+        </div>
         <h3>Faire le point</h3>
         <p>Je veux un portrait complet de ma situation</p>
         <span class="arrow">Sélectionner →</span>
@@ -659,19 +900,23 @@ body::after {
     <button class="back-btn" onclick="goTo(1)">← Retour</button>
   </div>
 
-  <!-- ===== RESULT STEP ===== -->
+  <!-- RESULT STEP -->
   <div class="step" data-step="result">
     <div class="result-card">
-      <div class="result-icon" id="resultIcon"><i data-lucide="target"></i></div>
+      <div class="result-icon" id="resultIcon"></div>
       <h2 id="resultTitle">Votre solution</h2>
-      <p class="result-desc" id="resultDesc">Description de la solution recommandée.</p>
+      <p class="result-desc" id="resultDesc"></p>
       <div class="result-tags" id="resultTags"></div>
     </div>
 
-    <!-- FORMULAIRE DE CONTACT -->
+    <!-- FORMULAIRE -->
     <div class="contact-form-wrapper" id="contactForm">
       <div class="form-header">
-        <div class="form-header-icon">📞</div>
+        <div class="form-header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
         <h3>On vous rappelle gratuitement</h3>
         <p>Laissez-nous vos coordonnées et un conseiller vous contactera pour une consultation gratuite et sans engagement.</p>
       </div>
@@ -687,70 +932,65 @@ body::after {
             <input type="text" id="nom" placeholder="Votre nom" required>
           </div>
         </div>
-
         <div class="form-row">
           <div class="form-group">
             <label for="telephone">Téléphone <span class="required">*</span></label>
             <input type="tel" id="telephone" placeholder="(450) 000-0000" required>
           </div>
           <div class="form-group">
-            <label for="courriel">Courriel</label>
+            <label for="courriel">Courriel <span class="optional">(facultatif)</span></label>
             <input type="email" id="courriel" placeholder="votre@courriel.com">
           </div>
         </div>
-
         <div class="form-group full-width">
-          <label for="moment">Meilleur moment pour vous joindre</label>
+          <label>Meilleur moment pour vous joindre</label>
           <div class="moment-options">
-            <label class="moment-chip"><input type="radio" name="moment" value="Matin (8h-12h)"> <span>Matin (8h-12h)</span></label>
-            <label class="moment-chip"><input type="radio" name="moment" value="Après-midi (12h-17h)" checked> <span>Après-midi (12h-17h)</span></label>
-            <label class="moment-chip"><input type="radio" name="moment" value="Fin de journée (17h-19h)"> <span>Fin de journée (17h-19h)</span></label>
+            <label class="moment-chip"><input type="radio" name="moment" value="Matin (8h-12h)"> <span>Matin (8h–12h)</span></label>
+            <label class="moment-chip"><input type="radio" name="moment" value="Après-midi (12h-17h)" checked> <span>Après-midi (12h–17h)</span></label>
+            <label class="moment-chip"><input type="radio" name="moment" value="Fin de journée (17h-19h)"> <span>Fin de journée (17h–19h)</span></label>
           </div>
         </div>
-
         <div class="form-group full-width">
           <label for="notes">Notes ou précisions <span class="optional">(facultatif)</span></label>
-          <textarea id="notes" rows="3" placeholder="Décrivez brièvement votre situation ou vos questions..."></textarea>
+          <textarea id="notes" rows="3" placeholder="Décrivez brièvement votre situation ou vos questions…"></textarea>
         </div>
 
-        <!-- LOI 25 — CONSENTEMENT -->
+        <!-- LOI 25 -->
         <div class="consent-section">
           <div class="consent-header">
-            <span class="consent-icon"><i data-lucide="lock"></i></span>
-            <span>Protection de vos renseignements personnels</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="11" width="14" height="11" rx="2"/>
+              <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+              <circle cx="12" cy="16" r="1" fill="currentColor"/>
+            </svg>
+            Protection de vos renseignements personnels
           </div>
-
           <label class="consent-checkbox">
             <input type="checkbox" id="consentCollect" required>
             <span class="checkmark"></span>
-            <span class="consent-text">
-              J'accepte que G2 Stratèges Services Financiers (Industrielle Alliance) recueille mon nom, numéro de téléphone et courriel dans le but exclusif de me contacter pour une consultation en services financiers. <span class="required">*</span>
-            </span>
+            <span class="consent-text">J'accepte que G2 Stratèges Services Financiers (Industrielle Alliance) recueille mon nom, numéro de téléphone et courriel dans le but exclusif de me contacter pour une consultation en services financiers. <span class="required">*</span></span>
           </label>
-
           <label class="consent-checkbox">
             <input type="checkbox" id="consentComm">
             <span class="checkmark"></span>
-            <span class="consent-text">
-              J'accepte de recevoir des communications occasionnelles de G2 Stratèges concernant des conseils financiers et des offres de services pertinents. <span class="optional">(facultatif)</span>
-            </span>
+            <span class="consent-text">J'accepte de recevoir des communications occasionnelles de G2 Stratèges concernant des conseils financiers et des offres de services pertinents. <span class="optional">(facultatif)</span></span>
           </label>
-
           <div class="consent-details">
             <p><strong>Responsable de la protection des renseignements personnels :</strong><br>Guillaume Laplante — <a href="mailto:Guillaume.laplante1@agc.ia.ca">Guillaume.laplante1@agc.ia.ca</a></p>
-            <p>Vos données sont conservées pour une durée maximale de <strong>36 mois</strong> après votre dernier contact avec nous, puis supprimées de façon sécurisée. Vous pouvez en tout temps demander l'accès, la rectification ou la suppression de vos renseignements en nous contactant. Aucune donnée n'est partagée avec des tiers sans votre consentement explicite, conformément à la <strong>Loi 25</strong> sur la protection des renseignements personnels du Québec.</p>
+            <p>Vos données sont conservées pour une durée maximale de <strong>36 mois</strong> après votre dernier contact, puis supprimées de façon sécurisée. Vous pouvez en tout temps demander l'accès, la rectification ou la suppression de vos renseignements. Aucune donnée n'est partagée avec des tiers sans votre consentement explicite, conformément à la <strong>Loi 25</strong> sur la protection des renseignements personnels du Québec.</p>
           </div>
         </div>
 
-        <!-- SUBMIT -->
         <button type="button" class="btn-primary form-submit" id="submitBtn" onclick="submitForm()">
-          Demander qu'on me rappelle →
+          Demander qu'on me rappelle
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
 
-        <!-- SUCCESS MESSAGE (hidden by default) -->
         <div class="form-success" id="formSuccess">
-          <div class="success-icon">✅</div>
-          <h4>Demande envoyée avec succès!</h4>
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h4>Demande envoyée avec succès !</h4>
           <p>Un de nos conseillers vous contactera dans les plus brefs délais. Merci de votre confiance.</p>
         </div>
 
@@ -759,7 +999,7 @@ body::after {
 
       <div class="form-footer">
         <button class="btn-outline" onclick="restart()">← Recommencer le quiz</button>
-        <div class="result-contact">
+        <div class="result-contact" style="margin-top:1rem">
           Ou appelez-nous directement : <a href="tel:4503724054">450-372-4054</a> · Sans frais : <a href="tel:18888408438">1-888-840-8438</a>
         </div>
       </div>
@@ -768,168 +1008,75 @@ body::after {
 
 </main>
 
-<!-- FOOTER -->
 <footer class="quiz-footer">
-  G2 Stratèges Services Financiers · Industrielle Alliance Assurance et Services Financiers Inc.* — *Cabinet de services financiers
-  <br><a href="index.html">g2-strateges.github.io</a>
+  G2 Stratèges Services Financiers · Industrielle Alliance Assurance et Services Financiers Inc.* — *Cabinet de services financiers · © 2026 Tous droits réservés
 </footer>
 
 <script>
-// ===== STATE =====
-const answers = {};
-let currentStep = 0;
-const totalSteps = 3; // pour le calcul du pourcentage
-let depth = 0;
-
-// ===== RESULTS DATABASE =====
-const results = {
-  'assurance-vie-corp': {
-    icon: '🛡', title: 'Assurance vie corporative',
-    desc: 'Nous allons analyser vos besoins en protection pour votre entreprise : convention entre actionnaires, protection de personne clé, et couverture de prêts corporatifs. Notre approche vous assure une protection sur mesure.',
-    tags: ['Convention actionnaires', 'Personne clé', 'Prêt corporatif'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Assurance%20vie%20corporative'
-  },
-  'invalidite-corp': {
-    icon: '🏥', title: 'Protection invalidité corporative',
-    desc: 'Protégez votre revenu et la continuité de votre entreprise en cas d\'invalidité. Nous couvrons les frais généraux, le maintien du salaire et la protection des opérations.',
-    tags: ['Frais généraux', 'Maintien du revenu', 'Maladies graves'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Invalidit%C3%A9%20corporative'
-  },
-  'regime-collectif': {
-    icon: '👥', title: 'Régime d\'assurance collective',
-    desc: 'Attirez et retenez les meilleurs talents avec un régime collectif compétitif. Nous concevons des programmes sur mesure adaptés à la taille de votre entreprise et à votre budget.',
-    tags: ['Avantages sociaux', 'Rétention', 'Assurance groupe'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20R%C3%A9gime%20collectif'
-  },
-  'protection-complete': {
-    icon: '🔒', title: 'Protection corporative complète',
-    desc: 'Nous allons effectuer une analyse complète des risques de votre entreprise et bâtir une stratégie de protection couvrant tous les angles : vie, invalidité, maladies graves et régime collectif.',
-    tags: ['Assurance vie', 'Invalidité', 'Maladies graves', 'Collectif'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Protection%20compl%C3%A8te'
-  },
-  'retraite-corp': {
-    icon: '🏖', title: 'Planification de retraite du dirigeant',
-    desc: 'Optimisez votre sortie d\'entreprise : stratégie de rémunération, RRI, maximisation des cotisations et plan de décaissement fiscalement avantageux.',
-    tags: ['RRI', 'REER', 'Décaissement', 'Optimisation fiscale'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Retraite%20dirigeant'
-  },
-  'epargne-corp': {
-    icon: '🏦', title: 'Placement des surplus corporatifs',
-    desc: 'Faites fructifier les liquidités excédentaires de votre entreprise avec des stratégies de placement adaptées : comptes corporatifs, assurance vie avec valeur de rachat, et solutions de croissance à l\'abri de l\'impôt.',
-    tags: ['Surplus', 'Placements corporatifs', 'Croissance'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Surplus%20corporatifs'
-  },
-  'optimisation-fiscale': {
-    icon: '📋', title: 'Optimisation fiscale du dirigeant',
-    desc: 'Salaire vs dividende, REER, CELI, CELIAPP, compte de dividende en capital — nous analysons votre situation pour maximiser votre rémunération nette et minimiser votre charge fiscale.',
-    tags: ['Salaire vs dividende', 'REER/CELI', 'CDC', 'Fiscal'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Optimisation%20fiscale'
-  },
-  'regime-collectif-epargne': {
-    icon: '👥', title: 'Régime d\'épargne pour employés',
-    desc: 'Mettez en place un RPDB, REER collectif ou régime de retraite simplifié pour vos employés. Un outil puissant de rétention et un avantage fiscal pour votre entreprise.',
-    tags: ['RPDB', 'REER collectif', 'Avantages employés'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20R%C3%A9gime%20%C3%A9pargne%20employ%C3%A9s'
-  },
-  'succession-debut': {
-    icon: '🌱', title: 'Préparer votre transfert d\'entreprise',
-    desc: 'C\'est le bon moment pour commencer! Nous allons établir un portrait de la valeur de votre entreprise et bâtir une stratégie de transfert à long terme, incluant les aspects fiscaux et d\'assurance.',
-    tags: ['Évaluation', 'Planification', 'Gel successoral'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Transfert%20d%27entreprise'
-  },
-  'succession-planif': {
-    icon: '📐', title: 'Planification active du transfert',
-    desc: 'Vous avez une relève en vue — excellent. Nous structurons le transfert pour minimiser l\'impact fiscal, protéger vos intérêts et assurer une transition harmonieuse.',
-    tags: ['Gel successoral', 'Convention', 'Fiscalité', 'Financement'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Planification%20transfert'
-  },
-  'succession-urgent': {
-    icon: '⏰', title: 'Transfert d\'entreprise prioritaire',
-    desc: 'Le temps presse — nous priorisons votre dossier. Rencontrons-nous rapidement pour structurer le transfert et mettre en place les protections nécessaires.',
-    tags: ['Urgent', 'Transfert immédiat', 'Protection'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=URGENT%20-%20Transfert%20d%27entreprise'
-  },
-  'global-startup': {
-    icon: '🚀', title: 'Accompagnement démarrage',
-    desc: 'En début de parcours entrepreneurial, chaque décision compte. Nous établissons les bonnes bases : incorporation, protection minimale, début d\'épargne et structure fiscale optimale.',
-    tags: ['Démarrage', 'Structure', 'Protection de base'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Accompagnement%20d%C3%A9marrage'
-  },
-  'global-croissance': {
-    icon: '📈', title: 'Stratégie de croissance',
-    desc: 'Votre entreprise grandit — votre stratégie financière doit suivre. Nous révisons l\'ensemble de votre situation : protection, épargne, fiscalité et planification à moyen terme.',
-    tags: ['Croissance', 'Stratégie globale', 'Optimisation'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Strat%C3%A9gie%20croissance'
-  },
-  'global-mature': {
-    icon: '🏛', title: 'Stratégie d\'entreprise établie',
-    desc: 'Avec plus de 10 ans d\'expérience, vos besoins sont complexes. Nous offrons un accompagnement complet : protection, succession, optimisation fiscale et gestion de patrimoine.',
-    tags: ['Patrimoine', 'Succession', 'Fiscal', 'Protection'],
-    cta: 'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Entreprise%20%C3%A9tablie'
-  },
-  'particulier-assurance': {
-    icon: '🛡', title: 'Protection familiale',
-    desc: 'Protégez ceux qui comptent le plus. Nous analysons vos besoins réels en assurance vie, invalidité et maladies graves pour vous offrir une protection juste — sans surprotection inutile.',
-    tags: ['Assurance vie', 'Invalidité', 'Maladies graves'],
-    cta: 'mailto:g.gouletsimoneau@agc.ia.ca?subject=Demande%20-%20Assurance%20personnelle'
-  },
-  'particulier-epargne': {
-    icon: '💰', title: 'Épargne personnelle',
-    desc: 'REER, CELI, CELIAPP, REEE — nous déterminons la meilleure stratégie selon votre situation fiscale et vos projets de vie.',
-    tags: ['REER', 'CELI', 'CELIAPP', 'REEE'],
-    cta: 'mailto:g.gouletsimoneau@agc.ia.ca?subject=Demande%20-%20%C3%89pargne%20personnelle'
-  },
-  'particulier-retraite': {
-    icon: '🏖', title: 'Planification de retraite',
-    desc: 'Que vous soyez à 5 ou 25 ans de la retraite, nous bâtissons un plan réaliste et personnalisé pour vous permettre de vivre la retraite que vous méritez.',
-    tags: ['Retraite', 'Décaissement', 'REER', 'Rentes'],
-    cta: 'mailto:g.gouletsimoneau@agc.ia.ca?subject=Demande%20-%20Planification%20retraite'
-  },
-  'particulier-global': {
-    icon: '🧭', title: 'Bilan financier complet',
-    desc: 'Nous faisons le tour complet de votre situation : protection, épargne, fiscalité et objectifs de vie. Un portrait clair pour prendre les bonnes décisions.',
-    tags: ['Bilan complet', 'Planification', 'Objectifs'],
-    cta: 'mailto:g.gouletsimoneau@agc.ia.ca?subject=Demande%20-%20Bilan%20financier'
-  }
+// ===== SVG ICONS FOR RESULTS =====
+const icons = {
+  shield:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.8 9.3 8 10 4.2-.7 8-5 8-10V6l-8-4z"/></svg>`,
+  shieldOk:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.8 9.3 8 10 4.2-.7 8-5 8-10V6l-8-4z"/><polyline points="9 12 11 14 15 10"/></svg>`,
+  pulse:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 12 6 8 9 10 12 4 15 11 18 8 21 12"/></svg>`,
+  users:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="8" r="2.5"/><path d="M2 19c0-3 2.7-5 7-5s7 2 7 5"/><path d="M16 14c2.5 0 5 1.3 5 4"/></svg>`,
+  lock:       `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="11" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg>`,
+  sun:        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
+  chart:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="14" width="4" height="7"/><rect x="10" y="9" width="4" height="12"/><rect x="17" y="4" width="4" height="17"/></svg>`,
+  trending:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 8 12 13 15 21 6"/><line x1="21" y1="6" x2="21" y2="13"/><line x1="15" y1="6" x2="21" y2="6"/></svg>`,
+  doc:        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="12" y2="17"/></svg>`,
+  seedling:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12M12 12C12 6 7 3 3 5c4 1 7 4 9 7M12 12c0-6 5-9 9-7-4 1-7 4-9 7"/></svg>`,
+  compass:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="20" y2="4"/><path d="M14 4h6v6"/><path d="M4 14v6h6"/></svg>`,
+  clock:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>`,
+  rocket:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10"/><path d="M12 2l4 4-4 4"/><path d="M20 2l-4 4 4 4"/></svg>`,
+  columns:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><rect x="5" y="10" width="3" height="10"/><rect x="10.5" y="6" width="3" height="14"/><rect x="16" y="3" width="3" height="17"/></svg>`,
+  card:       `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="7" y1="15" x2="10" y2="15"/><circle cx="16" cy="15" r="1.5"/></svg>`,
+  heart:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
 };
 
-// ===== NAVIGATION =====
-function goTo(stepNum) {
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  const target = document.querySelector(`[data-step="${stepNum}"]`);
-  if (target) {
-    target.classList.add('active');
-    currentStep = stepNum;
-    updateProgress(stepNum);
-  }
-}
-
-function setAnswer(key, value) {
-  answers[key] = value;
-}
-
+const answers = {};
+let currentStep = 0;
 let currentResultKey = '';
 
-function showResult(resultKey) {
-  const r = results[resultKey];
-  if (!r) return;
+const results = {
+  'assurance-vie-corp': { icon:'shieldOk', title:'Assurance vie corporative', desc:'Nous allons analyser vos besoins en protection pour votre entreprise : convention entre actionnaires, protection de personne clé, et couverture de prêts corporatifs. Notre approche vous assure une protection sur mesure.', tags:['Convention actionnaires','Personne clé','Prêt corporatif'], cta:'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Assurance%20vie%20corporative' },
+  'invalidite-corp':    { icon:'pulse',   title:'Protection invalidité corporative', desc:"Protégez votre revenu et la continuité de votre entreprise en cas d'invalidité. Nous couvrons les frais généraux, le maintien du salaire et la protection des opérations.", tags:['Frais généraux','Maintien du revenu','Maladies graves'], cta:'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Invalidit%C3%A9%20corporative' },
+  'regime-collectif':   { icon:'users',   title:"Régime d'assurance collective", desc:"Attirez et retenez les meilleurs talents avec un régime collectif compétitif. Nous concevons des programmes sur mesure adaptés à la taille de votre entreprise et à votre budget.", tags:['Avantages sociaux','Rétention','Assurance groupe'], cta:'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20R%C3%A9gime%20collectif' },
+  'protection-complete':{ icon:'lock',    title:'Protection corporative complète', desc:"Nous allons effectuer une analyse complète des risques de votre entreprise et bâtir une stratégie de protection couvrant tous les angles : vie, invalidité, maladies graves et régime collectif.", tags:['Assurance vie','Invalidité','Maladies graves','Collectif'], cta:'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Protection%20compl%C3%A8te' },
+  'retraite-corp':      { icon:'sun',     title:'Planification de retraite du dirigeant', desc:"Optimisez votre sortie d'entreprise : stratégie de rémunération, RRI, maximisation des cotisations et plan de décaissement fiscalement avantageux.", tags:['RRI','REER','Décaissement','Optimisation fiscale'], cta:'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Retraite%20dirigeant' },
+  'epargne-corp':       { icon:'card',    title:'Placement des surplus corporatifs', desc:"Faites fructifier les liquidités excédentaires de votre entreprise avec des stratégies de placement adaptées : comptes corporatifs, assurance vie avec valeur de rachat, et solutions de croissance à l'abri de l'impôt.", tags:['Surplus','Placements corporatifs','Croissance'], cta:'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Surplus%20corporatifs' },
+  'optimisation-fiscale':{ icon:'doc',   title:'Optimisation fiscale du dirigeant', desc:"Salaire vs dividende, REER, CELI, CELIAPP, compte de dividende en capital — nous analysons votre situation pour maximiser votre rémunération nette et minimiser votre charge fiscale.", tags:['Salaire vs dividende','REER/CELI','CDC','Fiscal'], cta:'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Optimisation%20fiscale' },
+  'regime-collectif-epargne':{ icon:'users', title:"Régime d'épargne pour employés", desc:"Mettez en place un RPDB, REER collectif ou régime de retraite simplifié pour vos employés. Un outil puissant de rétention et un avantage fiscal pour votre entreprise.", tags:['RPDB','REER collectif','Avantages employés'], cta:'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20R%C3%A9gime%20%C3%A9pargne%20employ%C3%A9s' },
+  'succession-debut':   { icon:'seedling', title:"Préparer votre transfert d'entreprise", desc:"C'est le bon moment pour commencer ! Nous allons établir un portrait de la valeur de votre entreprise et bâtir une stratégie de transfert à long terme, incluant les aspects fiscaux et d'assurance.", tags:['Évaluation','Planification','Gel successoral'], cta:"mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Transfert%20d%27entreprise" },
+  'succession-planif':  { icon:'compass', title:'Planification active du transfert', desc:"Vous avez une relève en vue — excellent. Nous structurons le transfert pour minimiser l'impact fiscal, protéger vos intérêts et assurer une transition harmonieuse.", tags:['Gel successoral','Convention','Fiscalité','Financement'], cta:'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Planification%20transfert' },
+  'succession-urgent':  { icon:'clock',   title:"Transfert d'entreprise prioritaire", desc:"Le temps presse — nous priorisons votre dossier. Rencontrons-nous rapidement pour structurer le transfert et mettre en place les protections nécessaires.", tags:['Urgent','Transfert immédiat','Protection'], cta:"mailto:Guillaume.laplante1@agc.ia.ca?subject=URGENT%20-%20Transfert%20d%27entreprise" },
+  'global-startup':     { icon:'rocket',  title:'Accompagnement démarrage', desc:"En début de parcours entrepreneurial, chaque décision compte. Nous établissons les bonnes bases : incorporation, protection minimale, début d'épargne et structure fiscale optimale.", tags:['Démarrage','Structure','Protection de base'], cta:'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Accompagnement%20d%C3%A9marrage' },
+  'global-croissance':  { icon:'chart',   title:'Stratégie de croissance', desc:"Votre entreprise grandit — votre stratégie financière doit suivre. Nous révisons l'ensemble de votre situation : protection, épargne, fiscalité et planification à moyen terme.", tags:['Croissance','Stratégie globale','Optimisation'], cta:'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Strat%C3%A9gie%20croissance' },
+  'global-mature':      { icon:'columns', title:"Stratégie d'entreprise établie", desc:"Avec plus de 10 ans d'expérience, vos besoins sont complexes. Nous offrons un accompagnement complet : protection, succession, optimisation fiscale et gestion de patrimoine.", tags:['Patrimoine','Succession','Fiscal','Protection'], cta:'mailto:Guillaume.laplante1@agc.ia.ca?subject=Demande%20-%20Entreprise%20%C3%A9tablie' },
+  'particulier-assurance':{ icon:'shield', title:'Protection familiale', desc:"Protégez ceux qui comptent le plus. Nous analysons vos besoins réels en assurance vie, invalidité et maladies graves pour vous offrir une protection juste — sans surprotection inutile.", tags:['Assurance vie','Invalidité','Maladies graves'], cta:'mailto:g.gouletsimoneau@agc.ia.ca?subject=Demande%20-%20Assurance%20personnelle' },
+  'particulier-epargne':{ icon:'trending', title:'Épargne personnelle', desc:"REER, CELI, CELIAPP, REEE — nous déterminons la meilleure stratégie selon votre situation fiscale et vos projets de vie.", tags:['REER','CELI','CELIAPP','REEE'], cta:'mailto:g.gouletsimoneau@agc.ia.ca?subject=Demande%20-%20%C3%89pargne%20personnelle' },
+  'particulier-retraite':{ icon:'sun',    title:'Planification de retraite', desc:"Que vous soyez à 5 ou 25 ans de la retraite, nous bâtissons un plan réaliste et personnalisé pour vous permettre de vivre la retraite que vous méritez.", tags:['Retraite','Décaissement','REER','Rentes'], cta:'mailto:g.gouletsimoneau@agc.ia.ca?subject=Demande%20-%20Planification%20retraite' },
+  'particulier-global': { icon:'compass', title:'Bilan financier complet', desc:"Nous faisons le tour complet de votre situation : protection, épargne, fiscalité et objectifs de vie. Un portrait clair pour prendre les bonnes décisions.", tags:['Bilan complet','Planification','Objectifs'], cta:'mailto:g.gouletsimoneau@agc.ia.ca?subject=Demande%20-%20Bilan%20financier' },
+};
 
-  document.getElementById('resultIcon').textContent = r.icon;
+function goTo(stepNum) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const t = document.querySelector(`[data-step="${stepNum}"]`);
+  if (t) { t.classList.add('active'); currentStep = stepNum; updateProgress(stepNum); }
+}
+function setAnswer(k, v) { answers[k] = v; }
+function showResult(key) {
+  const r = results[key];
+  if (!r) return;
+  document.getElementById('resultIcon').innerHTML = icons[r.icon] || icons.shield;
   document.getElementById('resultTitle').textContent = r.title;
   document.getElementById('resultDesc').textContent = r.desc;
-
-  const tagsEl = document.getElementById('resultTags');
-  tagsEl.innerHTML = r.tags.map(t => `<span class="result-tag">${t}</span>`).join('');
-
+  document.getElementById('resultTags').innerHTML = r.tags.map(t => `<span class="result-tag">${t}</span>`).join('');
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.querySelector('[data-step="result"]').classList.add('active');
   updateProgress(100);
-
-  // Reset form state
-  currentResultKey = resultKey;
+  currentResultKey = key;
   document.getElementById('formSuccess').classList.remove('visible');
   document.getElementById('formError').classList.remove('visible');
-  document.getElementById('formError').style.display = 'none';
   document.getElementById('submitBtn').style.display = '';
   ['prenom','nom','telephone','courriel','notes'].forEach(id => {
     const el = document.getElementById(id);
@@ -938,20 +1085,14 @@ function showResult(resultKey) {
   document.getElementById('consentCollect').checked = false;
   document.getElementById('consentComm').checked = false;
 }
-
 function restart() {
   Object.keys(answers).forEach(k => delete answers[k]);
   goTo(0);
 }
-
-// ===== FORM SUBMISSION =====
 function submitForm() {
-  // Clear previous errors
   document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
   document.querySelectorAll('.shake').forEach(el => el.classList.remove('shake'));
   document.getElementById('formError').classList.remove('visible');
-  document.getElementById('formError').style.display = 'none';
-
   const prenom = document.getElementById('prenom').value.trim();
   const nom = document.getElementById('nom').value.trim();
   const telephone = document.getElementById('telephone').value.trim();
@@ -961,89 +1102,57 @@ function submitForm() {
   const consentComm = document.getElementById('consentComm').checked;
   const moment = document.querySelector('input[name="moment"]:checked');
   const momentVal = moment ? moment.value : 'Non précisé';
-
-  // Validation
   let errors = [];
   if (!prenom) { document.getElementById('prenom').classList.add('error'); errors.push('Prénom'); }
-  if (!nom) { document.getElementById('nom').classList.add('error'); errors.push('Nom'); }
-  if (!telephone) { document.getElementById('telephone').classList.add('error'); errors.push('Téléphone'); }
+  if (!nom)    { document.getElementById('nom').classList.add('error'); errors.push('Nom'); }
+  if (!telephone){ document.getElementById('telephone').classList.add('error'); errors.push('Téléphone'); }
   if (!consent) {
     const cb = document.getElementById('consentCollect').closest('.consent-checkbox');
-    cb.classList.add('shake');
-    setTimeout(() => cb.classList.remove('shake'), 500);
+    cb.classList.add('shake'); setTimeout(() => cb.classList.remove('shake'), 500);
     errors.push('Consentement');
   }
-
   if (errors.length > 0) {
     const errEl = document.getElementById('formError');
     errEl.textContent = 'Veuillez remplir les champs obligatoires : ' + errors.join(', ');
-    errEl.classList.add('visible');
-    errEl.style.display = 'block';
+    errEl.classList.add('visible'); errEl.style.display = 'block';
     return;
   }
-
-  // Get result info
   const resultInfo = results[currentResultKey] || { title: 'Consultation générale' };
-
-  // Determine recipient based on profile
-  const isEntrepreneur = answers.profil === 'entrepreneur';
-  const recipient = isEntrepreneur
+  const recipient = answers.profil === 'entrepreneur'
     ? 'Guillaume.laplante1@agc.ia.ca'
     : 'g.gouletsimoneau@agc.ia.ca';
-
-  // Build email
   const subject = encodeURIComponent(`Demande de rappel — ${resultInfo.title} — ${prenom} ${nom}`);
-
-  let body = `DEMANDE DE RAPPEL — G2 STRATÈGES\n`;
-  body += `${'='.repeat(45)}\n\n`;
-  body += `COORDONNÉES DU CLIENT\n`;
-  body += `Nom : ${prenom} ${nom}\n`;
-  body += `Téléphone : ${telephone}\n`;
+  let body = `DEMANDE DE RAPPEL — G2 STRATÈGES\n${'='.repeat(45)}\n\nCOORDONNÉES DU CLIENT\n`;
+  body += `Nom : ${prenom} ${nom}\nTéléphone : ${telephone}\n`;
   if (courriel) body += `Courriel : ${courriel}\n`;
-  body += `Meilleur moment : ${momentVal}\n\n`;
-  body += `BESOIN IDENTIFIÉ\n`;
+  body += `Meilleur moment : ${momentVal}\n\nBESOIN IDENTIFIÉ\n`;
   body += `Profil : ${answers.profil === 'entrepreneur' ? 'Entrepreneur / PME' : 'Particulier'}\n`;
   body += `Solution recommandée : ${resultInfo.title}\n`;
   if (resultInfo.tags) body += `Mots-clés : ${resultInfo.tags.join(', ')}\n`;
   if (notes) body += `\nNOTES DU CLIENT\n${notes}\n`;
-  body += `\n${'='.repeat(45)}\n`;
-  body += `CONSENTEMENTS (Loi 25)\n`;
-  body += `✓ Consentement à la collecte et au contact : OUI\n`;
+  body += `\n${'='.repeat(45)}\nCONSENTEMENTS (Loi 25)\n`;
+  body += `✓ Consentement à la collecte : OUI\n`;
   body += `${consentComm ? '✓' : '✗'} Consentement aux communications : ${consentComm ? 'OUI' : 'NON'}\n`;
-  body += `Date du consentement : ${new Date().toLocaleDateString('fr-CA')} à ${new Date().toLocaleTimeString('fr-CA')}\n`;
-
-  const mailtoLink = `mailto:${recipient}?subject=${subject}&body=${encodeURIComponent(body)}`;
-
-  // Open mailto
-  window.location.href = mailtoLink;
-
-  // Show success
+  body += `Date : ${new Date().toLocaleDateString('fr-CA')} à ${new Date().toLocaleTimeString('fr-CA')}\n`;
+  window.location.href = `mailto:${recipient}?subject=${subject}&body=${encodeURIComponent(body)}`;
   document.getElementById('submitBtn').style.display = 'none';
   document.getElementById('formSuccess').classList.add('visible');
 }
-
 function updateProgress(step) {
   const fill = document.getElementById('progressFill');
   const label = document.getElementById('progressStep');
   const pct = document.getElementById('progressPct');
-
-  let percent = 0;
-  let text = 'Démarrage';
-
-  if (step === 0) { percent = 0; text = 'Démarrage'; }
-  else if (step === 1) { percent = 25; text = 'Votre profil'; }
+  let percent = 0, text = 'Démarrage';
+  if (step === 0)  { percent = 0;   text = 'Démarrage'; }
+  else if (step === 1)  { percent = 25;  text = 'Votre profil'; }
   else if (step === 2 || step === 10) { percent = 50; text = 'Vos besoins'; }
-  else if (step >= 3 && step <= 6) { percent = 75; text = 'Précisions'; }
+  else if (step >= 3 && step <= 6)   { percent = 75; text = 'Précisions'; }
   else if (step === 100) { percent = 100; text = 'Votre solution'; }
-
   fill.style.width = percent + '%';
   label.textContent = text;
   pct.textContent = percent + '%';
 }
 </script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-<script>
-  lucide.createIcons();
-</script>
+
 </body>
 </html>
