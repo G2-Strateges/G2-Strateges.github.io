@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <script src="https://unpkg.com/lucide@latest"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>G2 Stratèges — Trouvez votre solution</title>
@@ -431,12 +432,12 @@ body::after {
 
   <!-- ===== STEP 0: WELCOME ===== -->
   <div class="step active" data-step="0">
-    <div class="step-icon">🧭</div>
+    <div class="step-icon"><i data-lucide="compass"></i></div>
     <h2>Trouvez la solution <em>adaptée à vos besoins</em></h2>
     <p class="subtitle">Répondez à quelques questions pour découvrir comment G2 Stratèges peut vous accompagner. Ça prend moins de 60 secondes.</p>
     <div class="options cols-1">
       <div class="option-card" onclick="goTo(1)">
-        <span class="option-icon">🚀</span>
+        <span class="option-icon"><i data-lucide="rocket"></i></span>
         <h3>Commencer</h3>
         <p>Découvrez nos solutions personnalisées</p>
         <span class="arrow">C'est parti →</span>
@@ -457,7 +458,7 @@ body::after {
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('profil','particulier'); goTo(10)">
-        <span class="option-icon">🏠</span>
+        <span class="option-icon"><i data-lucide="home"></i></div>
         <h3>Particulier</h3>
         <p>Je cherche des solutions pour ma situation personnelle</p>
         <span class="arrow">Sélectionner →</span>
@@ -468,7 +469,7 @@ body::after {
 
   <!-- ===== STEP 2: ENTREPRENEUR - BESOIN ===== -->
   <div class="step" data-step="2">
-    <div class="step-icon">🎯</div>
+    <div class="step-icon"><i data-lucide="target"></i></div>
     <h2>Quel est votre <em>besoin principal</em>?</h2>
     <p class="subtitle">Choisissez ce qui décrit le mieux votre priorité actuelle.</p>
     <div class="options cols-2">
@@ -479,19 +480,19 @@ body::after {
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('besoin','epargne'); goTo(4)">
-        <span class="option-icon">💰</span>
+        <span class="option-icon"><i data-lucide="wallet"></i></div>
         <h3>Épargne & placements</h3>
         <p>REER, CELI, régimes collectifs, optimisation corporative</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('besoin','succession'); goTo(5)">
-        <span class="option-icon">🔄</span>
+        <span class="option-icon"><i data-lucide="refresh-cw"></i></div>
         <h3>Succession & transfert</h3>
         <p>Planification successorale, transfert d'entreprise, relève</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('besoin','global'); goTo(6)">
-        <span class="option-icon">📊</span>
+        <span class="option-icon"><i data-lucide="bar-chart-3"></i></div>
         <h3>Stratégie globale</h3>
         <p>J'ai besoin d'un portrait complet de ma situation</p>
         <span class="arrow">Sélectionner →</span>
@@ -507,25 +508,25 @@ body::after {
     <p class="subtitle">Plusieurs options peuvent se combiner. Choisissez votre priorité.</p>
     <div class="options cols-2">
       <div class="option-card" onclick="setAnswer('protection','vie'); showResult('assurance-vie-corp')">
-        <span class="option-icon">❤️</span>
+        <span class="option-icon"><i data-lucide="heart"></i></span>
         <h3>Assurance vie corporative</h3>
         <p>Convention entre actionnaires, personne clé, protection du prêt</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('protection','invalidite'); showResult('invalidite-corp')">
-        <span class="option-icon">🏥</span>
+        <span class="option-icon"><i data-lucide="activity"></i></span>
         <h3>Invalidité & maladies graves</h3>
         <p>Maintien du revenu, frais généraux, protection de l'entreprise</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('protection','collectif'); showResult('regime-collectif')">
-        <span class="option-icon">👥</span>
+        <span class="option-icon"><i data-lucide="users"></i></span>
         <h3>Régime collectif</h3>
         <p>Assurance groupe pour mes employés, avantages sociaux</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('protection','tout'); showResult('protection-complete')">
-        <span class="option-icon">🔒</span>
+        <span class="option-icon"><i data-lucide="lock"></i></span>
         <h3>Protection complète</h3>
         <p>Je veux couvrir tous les angles pour mon entreprise</p>
         <span class="arrow">Sélectionner →</span>
@@ -536,30 +537,30 @@ body::after {
 
   <!-- ===== STEP 4: ÉPARGNE - DÉTAIL ===== -->
   <div class="step" data-step="4">
-    <div class="step-icon">💰</div>
+    <div class="step-icon"><i data-lucide="wallet"></i></span>
     <h2>Quel est votre objectif <em>d'épargne</em>?</h2>
     <p class="subtitle">Choisissez ce qui correspond le mieux à votre situation.</p>
     <div class="options cols-2">
       <div class="option-card" onclick="setAnswer('epargne','retraite'); showResult('retraite-corp')">
-        <span class="option-icon">🏖</span>
+        <span class="option-icon"><i data-lucide="landmark"></i></span>
         <h3>Planifier ma retraite</h3>
         <p>Optimiser mes cotisations et préparer ma sortie</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('epargne','corporatif'); showResult('epargne-corp')">
-        <span class="option-icon">🏦</span>
+        <span class="option-icon"><i data-lucide="banknote"></i></span>
         <h3>Surplus corporatifs</h3>
         <p>Placer les liquidités excédentaires de mon entreprise</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('epargne','fiscal'); showResult('optimisation-fiscale')">
-        <span class="option-icon">📋</span>
+        <span class="option-icon"><i data-lucide="file-text"></i></span>
         <h3>Optimisation fiscale</h3>
         <p>Rémunération optimale : salaire vs dividende, REER, CELI, etc.</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="setAnswer('epargne','employes'); showResult('regime-collectif-epargne')">
-        <span class="option-icon">👥</span>
+        <span class="option-icon"><i data-lucide="users"></i></span>
         <h3>Régime pour employés</h3>
         <p>RPDB, REER collectif, régime de retraite simplifié</p>
         <span class="arrow">Sélectionner →</span>
@@ -581,13 +582,13 @@ body::after {
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('succession-planif')">
-        <span class="option-icon">📐</span>
+        <span class="option-icon"><i data-lucide="ruler"></i></span>
         <h3>Je suis en planification</h3>
         <p>J'ai identifié un repreneur ou une relève</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('succession-urgent')">
-        <span class="option-icon">⏰</span>
+        <span class="option-icon"><i data-lucide="clock"></i></span>
         <h3>C'est urgent</h3>
         <p>Le transfert est prévu prochainement</p>
         <span class="arrow">Sélectionner →</span>
@@ -598,24 +599,24 @@ body::after {
 
   <!-- ===== STEP 6: GLOBAL ===== -->
   <div class="step" data-step="6">
-    <div class="step-icon">📊</div>
+    <div class="step-icon"><i data-lucide="bar-chart-3"></i></div>
     <h2>Depuis combien de temps <em>êtes-vous en affaires</em>?</h2>
     <p class="subtitle">Cela nous aide à calibrer notre accompagnement.</p>
     <div class="options cols-3">
       <div class="option-card" onclick="showResult('global-startup')">
-        <span class="option-icon">🚀</span>
+        <span class="option-icon"><i data-lucide="rocket"></i></span>
         <h3>0 – 3 ans</h3>
         <p>Entreprise en démarrage</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('global-croissance')">
-        <span class="option-icon">📈</span>
+        <span class="option-icon"><i data-lucide="bar-chart-3"></i></span>
         <h3>3 – 10 ans</h3>
         <p>En phase de croissance</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('global-mature')">
-        <span class="option-icon">🏛</span>
+        <span class="option-icon"><i data-lucide="building-2"></i></span>
         <h3>10 ans et plus</h3>
         <p>Entreprise bien établie</p>
         <span class="arrow">Sélectionner →</span>
@@ -626,7 +627,7 @@ body::after {
 
   <!-- ===== STEP 10: PARTICULIER - BESOIN ===== -->
   <div class="step" data-step="10">
-    <div class="step-icon">🏠</div>
+    <div class="step-icon"><i data-lucide="home"></i></span>
     <h2>Comment pouvons-nous <em>vous aider</em>?</h2>
     <p class="subtitle">Choisissez la situation qui vous ressemble le plus.</p>
     <div class="options cols-2">
@@ -637,19 +638,19 @@ body::after {
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('particulier-epargne')">
-        <span class="option-icon">💰</span>
+        <span class="option-icon"><i data-lucide="wallet"></i></span>
         <h3>Épargner pour l'avenir</h3>
         <p>REER, CELI, CELIAPP, REEE, placements</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('particulier-retraite')">
-        <span class="option-icon">🏖</span>
+        <span class="option-icon"><i data-lucide="sun"></i></span>
         <h3>Planifier ma retraite</h3>
         <p>Stratégie de décaissement, optimisation fiscale</p>
         <span class="arrow">Sélectionner →</span>
       </div>
       <div class="option-card" onclick="showResult('particulier-global')">
-        <span class="option-icon">🧭</span>
+        <span class="option-icon"><i data-lucide="compass"></i></div>
         <h3>Faire le point</h3>
         <p>Je veux un portrait complet de ma situation</p>
         <span class="arrow">Sélectionner →</span>
@@ -661,7 +662,7 @@ body::after {
   <!-- ===== RESULT STEP ===== -->
   <div class="step" data-step="result">
     <div class="result-card">
-      <div class="result-icon" id="resultIcon">🎯</div>
+      <div class="result-icon" id="resultIcon"><i data-lucide="target"></i></div>
       <h2 id="resultTitle">Votre solution</h2>
       <p class="result-desc" id="resultDesc">Description de la solution recommandée.</p>
       <div class="result-tags" id="resultTags"></div>
@@ -715,7 +716,7 @@ body::after {
         <!-- LOI 25 — CONSENTEMENT -->
         <div class="consent-section">
           <div class="consent-header">
-            <span class="consent-icon">🔒</span>
+            <span class="consent-icon"><i data-lucide="lock"></i></span>
             <span>Protection de vos renseignements personnels</span>
           </div>
 
@@ -1039,6 +1040,10 @@ function updateProgress(step) {
   label.textContent = text;
   pct.textContent = percent + '%';
 }
+</script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
 </script>
 </body>
 </html>
