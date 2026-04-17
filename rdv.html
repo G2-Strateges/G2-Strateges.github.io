@@ -458,18 +458,46 @@
       <h3>Gabriel Goulet-Simoneau</h3>
     </div>
   </div>
-  <div class="cal-frame-wrap">
-    <div class="cal-loader" id="loaderGab">
-      <div class="spinner"></div>
-      <p>Chargement du calendrier…</p>
+
+  <div class="cal-frame-wrap" style="display:flex; align-items:center; justify-content:center; background:#fff;">
+
+    <div style="text-align:center; max-width: 320px; padding: 20px;">
+      
+      <p style="
+        font-size:14px;
+        color:#555;
+        margin-bottom:20px;
+        line-height:1.5;
+      ">
+        Accédez au calendrier de Gabriel pour choisir le moment qui vous convient le mieux.
+      </p>
+
+      <a 
+        href="https://bookings.cloud.microsoft/bookwithme/user/1c67e727f10144b48e4a98fe7b2bb4f3%40agc.ia.ca"
+        target="_blank"
+        style="
+          display:inline-flex;
+          align-items:center;
+          justify-content:center;
+          gap:10px;
+          padding:16px 26px;
+          font-size:15px;
+          font-weight:600;
+          border-radius:12px;
+          background: linear-gradient(135deg, #AA8D2B 0%, #FDD300 50%, #fff38f 100%);
+          color:#000826;
+          text-decoration:none;
+          box-shadow: 0 12px 30px rgba(0,0,0,.18);
+          transition: all .25s cubic-bezier(.2,.7,.2,1);
+        "
+        onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 18px 45px rgba(0,0,0,.25)'"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 12px 30px rgba(0,0,0,.18)'"
+      >
+        📅 Prendre rendez-vous
+      </a>
+
     </div>
-    <iframe
-      src="https://outlook.office365.com/book/GabrielGouletSimoneau@ia.ca/?ismsaljsauthenabled=true"
-      title="Réserver avec Gabriel Goulet-Simoneau"
-      scrolling="yes"
-      onload="document.getElementById('loaderGab').classList.add('hidden')"
-      loading="lazy">
-    </iframe>
+
   </div>
 </div>
 
